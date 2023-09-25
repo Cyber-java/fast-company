@@ -3,7 +3,9 @@ import API from "../api";
 
 const Users = () => {
   const [users, setUsers] = useState(API.users.fetchAll());
-  const handleDelete = (userId) => {};
+  const handleDelete = (userId) => {
+    setUsers((prevState) => prevState.filter((user) => user._id !== userId));
+  };
   const handlePharse = (number) => {};
 
   return (
@@ -29,7 +31,10 @@ const Users = () => {
                   <td>{user.completedMeetings}</td>
                   <td>{user.rate}</td>
                   <td>
-                    <button className="btn btn-danger" onClick={handleDelete}>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleDelete(user._id)}
+                    >
                       Delete
                     </button>
                   </td>
