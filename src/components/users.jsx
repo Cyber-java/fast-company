@@ -5,37 +5,40 @@ const Users = () => {
   const [users, setUsers] = useState(API.users.fetchAll());
   const handleDelete = (userId) => {};
   const handlePharse = (number) => {};
+
   return (
     <>
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colSpan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </table>
+      {users.length > 0 && (
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">Имя</th>
+              <th scope="col">Качества</th>
+              <th scope="col">Профессия</th>
+              <th scope="col">Встретился,раз</th>
+              <th scope="col">Рейтинг</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => {
+              return (
+                <tr key={user._id}>
+                  <td key={user._id}>{user.name}</td>
+                  <td>{user.qualities.map((qualitie) => qualitie.name)}</td>
+                  <td>{user.profession.name}</td>
+                  <td>{user.completedMeetings}</td>
+                  <td>{user.rate}</td>
+                  <td>
+                    <button className="btn btn-danger" onClick={handleDelete}>
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
     </>
   );
 };
