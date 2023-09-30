@@ -9,12 +9,12 @@ const User = (props) => {
         <td>{props.name}</td>
         <td>
           {props.qualities.map((qualitie) => (
-            <span
-              className={"badge m-1 bg-" + qualitie.color}
+            <Qualitie
               key={qualitie._id}
-            >
-              {qualitie.name}
-            </span>
+              color={qualitie.color}
+              name={qualitie.name}
+              _id={qualitie._id}
+            />
           ))}
         </td>
         <td>{props.profession.name}</td>
