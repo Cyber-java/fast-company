@@ -8,34 +8,26 @@ function App() {
   const handleDelete = (userId) => {
     setUsers(users.filter((user) => user._id !== userId));
   };
-  const toogleBookMark = (id) => {};
+  const toogleBookMark = (id) => {
+    setUsers(
+      users.map((user) => {
+        if (user._id === id) {
+          return { ...user, bookmark: !user.bookmark };
+        }
+        return user;
+      })
+    );
+  };
 
   return (
-    <>
+    <div>
       <SeachStatus length={users.length} />
-      <div>
-        {users.length > 0 && (
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">Имя</th>
-                <th scope="col">Качества</th>
-                <th scope="col">Профессия</th>
-                <th scope="col">Встретился,раз</th>
-                <th scope="col">Рейтинг</th>
-                <th scope="col">Избранное</th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user) => (
-                <Users key={user._id} {...user} onDelete={handleDelete} />
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
-    </>
+      <Users
+        onDelete={handleDelete}
+        onToogleBookmark={toogleBookMark}
+        users={users}
+      ></Users>
+    </div>
   );
 }
 export default App;
