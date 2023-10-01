@@ -5,9 +5,7 @@ import Pagination from "./pagination";
 const Users = ({ users, ...rest }) => {
   const count = users.length;
   const pageSize = 4;
-  const handlePageChange = (pageIndex) => {
-    console.log("page: ", pageIndex);
-  };
+  const handlePageChange = (pageIndex) => {};
   return (
     <>
       {count > 0 && (
