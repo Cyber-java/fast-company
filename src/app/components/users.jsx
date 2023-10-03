@@ -11,6 +11,8 @@ const Users = ({ users, ...rest }) => {
     const pageSize = 4;
     const [currentPage, setCurrentPage] = useState(1);
     const [professions] = useState(api.professions.fetchAll());
+
+    useEffect(() => {});
     const handlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex);
     };
