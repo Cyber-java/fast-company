@@ -6,28 +6,40 @@ import GroupList from "./groupList";
 import PropTypes from "prop-types";
 import api from "../api";
 
-const Users = ({ users, ...rest }) => {
-    const count = users.length;
+const Users = ({ users: allUsers, ...rest }) => {
+    const count = allUsers.length;
     const pageSize = 4;
     const [currentPage, setCurrentPage] = useState(1);
-    const [professions] = useState(api.professions.fetchAll());
+    const [professions, setProfessions] = useState();
+    const [selectedProf, setSelectedProf] = useState();
 
-    useEffect(() => {});
+    useEffect(() => {
+        api.professions.fetchAll().then((data) => setProfessions(data));
+    });
     const handlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex);
     };
-    const handleItemsSelect = (params) => {
-        console.log(params);
+    const handleItemsSelect = (item) => {
+        setSelectedProf(item);
+        console.log(item);
     };
-    console.log(professions);
-    const userCrop = paginate(users, currentPage, pageSize);
+    const filtredUsers = selectedProf
+        ? allUsers.filter((user) => user.profession === selectedProf)
+        : allUsers;
+    const userCrop = paginate(filtredUsers, currentPage, pageSize);
 
     return (
         <>
-            <GroupList
-                items={professions}
-                onItemsSelected={handleItemsSelect}
-            />
+            {professions && (
+                <GroupList
+                    selectedItem={selectedProf}
+                    items={professions}
+                    onItemSelect={handleItemsSelect}
+                    valueProperty="_id"
+                    contentProperty="name"
+                />
+            )}
+
             {count > 0 && (
                 <table className="table">
                     <thead>
