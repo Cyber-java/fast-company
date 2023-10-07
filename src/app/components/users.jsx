@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import User from "./user";
+import UserTable from "./userTable";
 import Pagination from "./pagination";
 import { paginate } from "../utils/paginate";
 import GroupList from "./groupList";
@@ -60,26 +60,7 @@ const Users = ({ users: allUsers, ...rest }) => {
             )}
             <div className="d-flex flex-column">
                 <SeachStatus length={count} />
-                {count > 0 && (
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Имя</th>
-                                <th scope="col">Качества</th>
-                                <th scope="col">Профессия</th>
-                                <th scope="col">Встретился,раз</th>
-                                <th scope="col">Рейтинг</th>
-                                <th scope="col">Избранное</th>
-                                <th />
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {userCrop.map((user) => (
-                                <User key={user._id} {...rest} {...user} />
-                            ))}
-                        </tbody>
-                    </table>
-                )}
+                {count > 0 && <UserTable users={userCrop} {...rest} />}
                 <div className="d-flex justify-content-center">
                     <Pagination
                         itemsCount={count}
