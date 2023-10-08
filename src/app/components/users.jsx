@@ -25,7 +25,9 @@ const Users = ({ users: allUsers, ...rest }) => {
     const handleItemsSelect = (item) => {
         setSelectedProf(item);
     };
-
+    const handleSort = (item) => {
+        console.log(item);
+    };
     const filtredUsers = selectedProf
         ? allUsers.filter(
               (user) =>
@@ -60,7 +62,9 @@ const Users = ({ users: allUsers, ...rest }) => {
             )}
             <div className="d-flex flex-column">
                 <SeachStatus length={count} />
-                {count > 0 && <UserTable users={userCrop} {...rest} />}
+                {count > 0 && (
+                    <UserTable users={userCrop} {...rest} onSort={handleSort} />
+                )}
                 <div className="d-flex justify-content-center">
                     <Pagination
                         itemsCount={count}
