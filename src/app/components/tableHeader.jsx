@@ -1,30 +1,40 @@
 import React from "react";
-
-const TableHeader = () => {
+import PropTypes from "prop-types";
+const TableHeader = ({ onSort, selectedSort, colums }) => {
+    const handleSort = (item) => {
+        if (selectedSort.path === item) {
+            onSort({
+                ...selectedSort,
+                order: selectedSort.order === "asc" ? "desc" : "asc"
+            });
+        } else {
+            onSort({ path: item, order: "asc" });
+        }
+    };
     return (
         <thead>
             <tr>
-                <th onClick={() => handleSort("name")} scope="col">
-                    Имя
-                </th>
-                <th scope="col">Качества</th>
-                <th onClick={() => handleSort("profession.name")} scope="col">
-                    Профессия
-                </th>
-
-                <th onClick={() => handleSort("completedMeetings")} scope="col">
-                    Встретился,раз
-                </th>
-                <th onClick={() => handleSort("rate")} scope="col">
-                    Рейтинг
-                </th>
-                <th onClick={() => handleSort("bookmark")} scope="col">
-                    Избранное
-                </th>
-                <th />
+                {Object.keys(colums).map((column) => (
+                    <th
+                        key={column}
+                        onClick={
+                            colums[column].path
+                                ? () => handleSort(colums[column].path)
+                                : undefined
+                        }
+                        {...{ role: colums[column].path && "button" }}
+                        scope="col"
+                    >
+                        {colums[column].name}
+                    </th>
+                ))}
             </tr>
         </thead>
     );
 };
-
+TableHeader.propTypes = {
+    onSort: PropTypes.func.isRequired,
+    selectedSort: PropTypes.object.isRequired,
+    colums: PropTypes.object.isRequired
+};
 export default TableHeader;
