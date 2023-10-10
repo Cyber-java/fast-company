@@ -38,7 +38,7 @@ const Users = ({ users: allUsers, ...rest }) => {
         : allUsers;
 
     const count = filtredUsers.length;
-    const sortedUsers = _.orderBy(filtredUsers, [sortBy.iter], [sortBy.order]);
+    const sortedUsers = _.orderBy(filtredUsers, [sortBy.path], [sortBy.order]);
     const userCrop = paginate(sortedUsers, currentPage, pageSize);
     const clearFilter = () => {
         setSelectedProf();
