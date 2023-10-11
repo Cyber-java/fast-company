@@ -1,6 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 const TableHeader = ({ onSort, selectedSort, colums }) => {
+    // const iconUp = <i class="bi bi-caret-up-fill"></i>
+    // const iconDown = <i class="bi bi-caret-down-fill"></i>
+    const renderSortArrow = (selectedSort, currentPath) => {
+        if (selectedSort.path === currentPath) {
+            if (selectedSort.order === "asc") {
+                return <i className="bi bi-caret-down-fill"></i>;
+            }
+            return <i className="bi bi-caret-up-fill"></i>;
+        }
+        return null;
+    };
     const handleSort = (item) => {
         if (selectedSort.path === item) {
             onSort({
@@ -26,6 +37,7 @@ const TableHeader = ({ onSort, selectedSort, colums }) => {
                         scope="col"
                     >
                         {colums[column].name}
+                        {renderSortArrow(selectedSort, colums[column].path)}
                     </th>
                 ))}
             </tr>
