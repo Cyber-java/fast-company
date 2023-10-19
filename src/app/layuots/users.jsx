@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import UserTable from "./userTable";
-import Pagination from "./pagination";
+import UserTable from "../components/userTable";
+import Pagination from "../components/pagination";
 import { paginate } from "../utils/paginate";
-import GroupList from "./groupList";
+import GroupList from "../components/groupList";
 import PropTypes from "prop-types";
 import api from "../api";
-import SeachStatus from "./seachStatus";
+import SeachStatus from "../components/seachStatus";
 import _ from "lodash";
 
 const Users = () => {
@@ -14,7 +14,6 @@ const Users = () => {
     const [professions, setProfessions] = useState();
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
-
     const [users, setUsers] = useState();
 
     useEffect(() => {
